@@ -585,6 +585,10 @@ def alpha_dropout(input, p=0.5, training=False):
     return output.mul_(a).add_(b)
 
 
+def dropout1d(input, p=0.5, training=False, inplace=False):
+    return _functions.dropout.FeatureDropout.apply(input, p, training, inplace)
+
+
 def dropout2d(input, p=0.5, training=False, inplace=False):
     return _functions.dropout.FeatureDropout.apply(input, p, training, inplace)
 

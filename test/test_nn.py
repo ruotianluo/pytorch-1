@@ -1739,6 +1739,13 @@ class TestNN(NNTestCase):
         input = torch.Tensor(1000)
         self._test_dropout(nn.Dropout, input)
 
+    def test_Dropout1d(self):
+        b = random.randint(1, 5)
+        l = random.randint(1, 5)
+        num_features = 1000
+        input = torch.Tensor(num_features, b, l)
+        self._test_dropout(nn.Dropout1d, input)
+
     def test_Dropout2d(self):
         b = random.randint(1, 5)
         w = random.randint(1, 5)
@@ -3186,6 +3193,8 @@ class TestNN(NNTestCase):
         v = torch.ones(1)
         self.assertRaises(ValueError, lambda: nn.Dropout(-0.1))
         self.assertRaises(ValueError, lambda: nn.Dropout(1.1))
+        self.assertRaises(ValueError, lambda: nn.Dropout1d(-0.1))
+        self.assertRaises(ValueError, lambda: nn.Dropout1d(1.1))
         self.assertRaises(ValueError, lambda: nn.Dropout2d(-0.1))
         self.assertRaises(ValueError, lambda: nn.Dropout2d(1.1))
         self.assertRaises(ValueError, lambda: nn.Dropout3d(-0.1))

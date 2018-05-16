@@ -1060,6 +1060,11 @@ Dropout functions
 
 .. autofunction:: alpha_dropout
 
+:hidden:`dropout1d`
+~~~~~~~~~~~~~~~~~~~
+
+.. autofunction:: dropout1d
+
 :hidden:`dropout2d`
 ~~~~~~~~~~~~~~~~~~~
 

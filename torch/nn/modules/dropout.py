@@ -53,6 +53,45 @@ class Dropout(_DropoutNd):
         return F.dropout(input, self.p, self.training, self.inplace)
 
 
+class Dropout1d(_DropoutNd):
+    r"""Randomly zeroes whole channels of the input tensor.
+    The channels to zero-out are randomized on every forward call.
+
+    Usually the input comes from :class:`nn.Conv1d` modules.
+
+    As described in the paper
+    `Efficient Object Localization Using Convolutional Networks`_ ,
+    if adjacent pixels within feature maps are strongly correlated
+    (as is normally the case in early convolution layers) then i.i.d. dropout
+    will not regularize the activations and will otherwise just result
+    in an effective learning rate decrease.
+
+    In this case, :func:`nn.Dropout1d` will help promote independence between
+    feature maps and should be used instead.
+
+    Args:
+        p (float, optional): probability of an element to be zero-ed.
+        inplace (bool, optional): If set to ``True``, will do this operation
+            in-place
+
+    Shape:
+        - Input: :math:`(N, C, L)`
+        - Output: :math:`(N, C, L)` (same shape as input)
+
+    Examples::
+
+        >>> m = nn.Dropout1d(p=0.2)
+        >>> input = torch.randn(20, 16, 32)
+        >>> output = m(input)
+
+    .. _Efficient Object Localization Using Convolutional Networks:
+       http://arxiv.org/abs/1411.4280
+    """
+
+    def forward(self, input):
+        return F.dropout1d(input, self.p, self.training, self.inplace)
+
+
 class Dropout2d(_DropoutNd):
     r"""Randomly zeroes whole channels of the input tensor.
     The channels to zero-out are randomized on every forward call.
